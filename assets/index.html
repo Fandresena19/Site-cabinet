@@ -105,18 +105,19 @@
 
             <div class="manager-stats">
               <div class="stat-item">
-                <div class="stat-number">10+</div>
+                <div class="stat-number">30+</div>
                 <div class="stat-label">Clients accompagnés</div>
               </div>
               <div class="stat-item">
-                <div class="stat-number">6</div>
+                <div class="stat-number">6+</div>
                 <div class="stat-label">Années d'expérience</div>
               </div>
-              <div class="stat-item">
-                <div class="stat-number">98%</div>
 
+              <!-- <div class="stat-item">
+                <div class="stat-number">98%</div>
                 <div class="stat-label">Satisfaction client</div>
-              </div>
+              </div> -->
+
             </div>
           </div>
         </div>
@@ -335,6 +336,7 @@
   <section class="trusted-companies">
     <div class="container">
       <h2>ENTREPRISES QUI NOUS ONT FAIT CONFIANCE</h2>
+      <div class="companies-wrapper">
       <div class="companies-grid">
         <div class="company-item">
           <div class="company-logo">
@@ -393,6 +395,12 @@
           <p>Centres médicaux</p>
         </div>
       </div>
+      <div class="carousel-controls">
+        <button id="prev"> Précédent</button>
+        <button id="pause"> Pause</button>
+        <button id="next"> Suivant</button>
+      </div>
+      </div>
     </div>
   </section>
 
@@ -428,7 +436,8 @@
               <i class='bx bx-envelope'></i>
               <div>
                 <h4>Email</h4>
-                <p> contact@srays.com </p>
+                <p> contact@srays.mg </p>
+                <p>admin@srays.org</p>
                 <!-- <p>contact@audit-expertise.fr</p> -->
               </div>
             </div>
@@ -478,8 +487,7 @@
 
             <div class="form-group checkbox-group">
               <input type="checkbox" id="rgpd" name="rgpd" required>
-              <label for="rgpd">J'accepte que mes données personnelles soient utilisées pour me recontacter dans le
-                cadre de ma demande *</label>
+              <label for="rgpd">Je ne suis pas un robot</label>
             </div>
 
             <button type="submit" class="submit-btn">
@@ -521,6 +529,62 @@
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 
   <script src="./js/Contact.js"></script>
+  
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const slider = document.querySelector(".companies-grid");
+    const items = document.querySelectorAll(".company-item");
+    const pauseBtn = document.getElementById("pause");
+    const nextBtn = document.getElementById("next");
+    const prevBtn = document.getElementById("prev");
+
+    let position = 0;
+    let itemWidth = 280; // largeur + marge estimée
+    let isPaused = false;
+
+    // Dupliquer les éléments pour boucle fluide
+    items.forEach(item => {
+      const clone = item.cloneNode(true);
+      slider.appendChild(clone);
+    });
+
+    // Animation auto
+    function autoSlide() {
+      if (!isPaused) {
+        position -= 1;
+        slider.style.transform = `translateX(${position}px)`;
+
+        // Réinitialiser à 0 pour boucle infinie
+        if (Math.abs(position) >= slider.scrollWidth / 2) {
+          position = 0;
+        }
+      }
+      requestAnimationFrame(autoSlide);
+    }
+
+    autoSlide();
+
+    // Bouton pause / lecture
+    pauseBtn.addEventListener("click", () => {
+      isPaused = !isPaused;
+      pauseBtn.textContent = isPaused ? " Reprendre" : " Pause";
+    });
+
+    // Bouton suivant
+    nextBtn.addEventListener("click", () => {
+      position -= itemWidth;
+      slider.style.transform = `translateX(${position}px)`;
+    });
+
+    // Bouton précédent
+    prevBtn.addEventListener("click", () => {
+      position += itemWidth;
+      slider.style.transform = `translateX(${position}px)`;
+    });
+  });
+</script>
+
+
 
 </body>
 
